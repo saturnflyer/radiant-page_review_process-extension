@@ -1,0 +1,24 @@
+.row
+  %p
+    %label{:for=>"page_layout_id"}
+      Layout
+    = select "page", "layout_id", [['<inherit>', '']] + Layout.find(:all).map { |s| [s.name, s.id] }
+  %p
+    %label{:for=>"page_class_name"}
+      Page Type
+    = select "page", "class_name", [['<normal>', 'Page']] + Page.descendants.map { |p| [p.display_name, p.name] }.sort_by { |p| p.first }
+  %p
+    %label{:for=>"page_status_id"}
+      Status
+    - if current_user.writer?
+      Draft
+      = hidden_field "page", "status_id", :value => Status['Draft'].id
+    - elsif current_user.reviewer?
+      = select "page", "status_id", [['Draft',Status['Draft'].id],['Reviewed',Status['Reviewed'].id]]
+    - elsif current_user.publisher? || current_user.admin?
+      = select "page", "status_id", Status.find_all.map { |s| [s.name, s.id] }, {}
+  - if @config['page.edit.published_date?']
+    %p#publication-date{:style => "display: none"}
+      %label{:for=>"page_published_at"}
+        Published At
+      = datetime_select "page", "published_at", :disabled => true

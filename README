@@ -1,0 +1,12 @@
+= Page Review Process
+
+Building on RBAC Base, users are restricted from accessing or editing
+pages when they are not in the appropriate role.
+
+Roles and their access:
+
+ - Publisher (access to any type of page)
+ - Reviewer (access to draft and reviewed pages)
+ - Writer (access to draft pages)
+ 
+Built by Saturn Flyer http://www.saturnflyer.com

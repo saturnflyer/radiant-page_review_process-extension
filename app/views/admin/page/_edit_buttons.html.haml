@@ -1,0 +1,10 @@
+- @buttons_partials.each do |partial|
+  = render :partial => partial
+%p.buttons
+  - if @page.savable_by_user?(current_user)
+    = save_model_button(@page)
+    = save_model_and_continue_editing_button(@page)
+    or
+    = link_to 'Cancel', page_index_url
+  - else
+    = link_to 'Return to the Page list', page_index_url
