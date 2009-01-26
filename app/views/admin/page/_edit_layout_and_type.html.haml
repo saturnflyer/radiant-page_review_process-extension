@@ -10,10 +10,10 @@
   %p
     %label{:for=>"page_status_id"}
       Status
-    - if current_user.writer?
+    - if current_user.writer? && !current_user.admin?
       Draft
       = hidden_field "page", "status_id", :value => Status['Draft'].id
-    - elsif current_user.reviewer?
+    - elsif current_user.reviewer? && !current_user.admin?
       = select "page", "status_id", [['Draft',Status['Draft'].id],['Reviewed',Status['Reviewed'].id]]
     - elsif current_user.publisher? || current_user.admin?
       = select "page", "status_id", Status.find_all.map { |s| [s.name, s.id] }, {}
