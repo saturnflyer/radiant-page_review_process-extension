@@ -11,7 +11,7 @@ class PageReviewProcessExtension < Radiant::Extension
   def activate
     raise PageReviewProcessExtension::MissingRequirement.new('RbacBaseExtension must be installed and loaded first.') unless defined?(RbacBaseExtension)
     Page.send :include, PageReview
-    Admin::PageController.send :include, PageUpdateRestriction
+    Admin::PagesController.send :include, PageUpdateRestriction
   end
   
   def deactivate
